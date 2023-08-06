@@ -1,0 +1,183 @@
+{
+  "version": 4,
+  "terraform_version": "1.3.2",
+  "serial": 18,
+  "lineage": "244af0db-cd86-004d-294f-9e467d4cb7cd",
+  "outputs": {
+    "resource_group_name": {
+      "value": "ODL-azure-1035132",
+      "type": "string"
+    },
+    "vnet_id": {
+      "value": "/subscriptions/b2aec48f-6dad-4d57-ad25-dad521fe74a4/resourceGroups/ODL-azure-1035132/providers/Microsoft.Network/virtualNetworks/ODL-azure-1035132",
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "azurerm_resource_group",
+      "name": "rg",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/b2aec48f-6dad-4d57-ad25-dad521fe74a4/resourceGroups/ODL-azure-1035132",
+            "location": "eastus",
+            "name": "ODL-azure-1035132",
+            "tags": {
+              "DeploymentId": "1035132",
+              "LaunchId": "21565",
+              "LaunchType": "ON_DEMAND_LAB",
+              "TemplateId": "4283",
+              "TenantId": "363"
+            },
+            "timeouts": {
+              "create": null,
+              "delete": null,
+              "read": null,
+              "update": null
+            }
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo1NDAwMDAwMDAwMDAwLCJkZWxldGUiOjU0MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjo1NDAwMDAwMDAwMDAwfX0="
+        }
+      ]
+    },
+    {
+      "module": "module.vnet-main",
+      "mode": "data",
+      "type": "azurerm_resource_group",
+      "name": "vnet",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/b2aec48f-6dad-4d57-ad25-dad521fe74a4/resourceGroups/ODL-azure-1035132",
+            "location": "eastus",
+            "name": "ODL-azure-1035132",
+            "tags": {
+              "DeploymentId": "1035132",
+              "LaunchId": "21565",
+              "LaunchType": "ON_DEMAND_LAB",
+              "TemplateId": "4283",
+              "TenantId": "363"
+            },
+            "timeouts": null
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    },
+    {
+      "module": "module.vnet-main",
+      "mode": "managed",
+      "type": "azurerm_subnet",
+      "name": "subnet",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "address_prefix": "10.0.0.0/24",
+            "address_prefixes": [
+              "10.0.0.0/24"
+            ],
+            "delegation": [],
+            "enforce_private_link_endpoint_network_policies": false,
+            "enforce_private_link_service_network_policies": false,
+            "id": "/subscriptions/b2aec48f-6dad-4d57-ad25-dad521fe74a4/resourceGroups/ODL-azure-1035132/providers/Microsoft.Network/virtualNetworks/ODL-azure-1035132/subnets/web",
+            "name": "web",
+            "resource_group_name": "ODL-azure-1035132",
+            "service_endpoint_policy_ids": [],
+            "service_endpoints": [],
+            "timeouts": null,
+            "virtual_network_name": "ODL-azure-1035132"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.rg",
+            "module.vnet-main.azurerm_virtual_network.vnet",
+            "module.vnet-main.data.azurerm_resource_group.vnet"
+          ]
+        },
+        {
+          "index_key": 1,
+          "schema_version": 0,
+          "attributes": {
+            "address_prefix": "10.0.1.0/24",
+            "address_prefixes": [
+              "10.0.1.0/24"
+            ],
+            "delegation": [],
+            "enforce_private_link_endpoint_network_policies": false,
+            "enforce_private_link_service_network_policies": false,
+            "id": "/subscriptions/b2aec48f-6dad-4d57-ad25-dad521fe74a4/resourceGroups/ODL-azure-1035132/providers/Microsoft.Network/virtualNetworks/ODL-azure-1035132/subnets/database",
+            "name": "database",
+            "resource_group_name": "ODL-azure-1035132",
+            "service_endpoint_policy_ids": [],
+            "service_endpoints": [],
+            "timeouts": null,
+            "virtual_network_name": "ODL-azure-1035132"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.rg",
+            "module.vnet-main.azurerm_virtual_network.vnet",
+            "module.vnet-main.data.azurerm_resource_group.vnet"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.vnet-main",
+      "mode": "managed",
+      "type": "azurerm_virtual_network",
+      "name": "vnet",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "address_space": [
+              "10.0.0.0/16"
+            ],
+            "bgp_community": "",
+            "ddos_protection_plan": [],
+            "dns_servers": [],
+            "flow_timeout_in_minutes": 0,
+            "guid": "56865e81-8f87-418d-aafe-835156a8af52",
+            "id": "/subscriptions/b2aec48f-6dad-4d57-ad25-dad521fe74a4/resourceGroups/ODL-azure-1035132/providers/Microsoft.Network/virtualNetworks/ODL-azure-1035132",
+            "location": "eastus",
+            "name": "ODL-azure-1035132",
+            "resource_group_name": "ODL-azure-1035132",
+            "subnet": [],
+            "tags": {
+              "DeploymentId": "1035132",
+              "LaunchId": "21565",
+              "LaunchType": "ON_DEMAND_LAB",
+              "TemplateId": "4283",
+              "TenantId": "363",
+              "costcenter": "it",
+              "environment": "dev"
+            },
+            "timeouts": null,
+            "vm_protection_enabled": false
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.rg",
+            "module.vnet-main.data.azurerm_resource_group.vnet"
+          ]
+        }
+      ]
+    }
+  ],
+  "check_results": []
+}
