@@ -1,23 +1,68 @@
 resource "azurerm_resource_group" "rg" {
-  name     = "ODL-azure-1035132"
+  name     = "ODL-azure-1035642"
   location = "eastus"
 }
 
-module "vnet-main" {
-  source              = "Azure/vnet/azurerm"
-  version             = "~> 2.0"
-  resource_group_name = azurerm_resource_group.rg.name
-  vnet_name           = var.resource_group_name
-  address_space       = [var.vnet_cidr_range]
-  subnet_prefixes     = var.subnet_prefixes
-  subnet_names        = var.subnet_names
-  nsg_ids             = {}
+resource "random_integer" "sa_num" {
+  min = 10000
+  max = 99999
+}
 
-  tags = {
-    environment = "dev"
-    costcenter  = "it"
+resource "azurerm_storage_account" "sa" {
+  name                     = "${lower(var.naming_prefix)}${random_integer.sa_num.result}"
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = var.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
 
+}
+
+resource "azurerm_storage_container" "ct" {
+  name                 = "terraform-state"
+  storage_account_name = azurerm_storage_account.sa.name
+
+}
+
+data "azurerm_storage_account_sas" "state" {
+  connection_string = azurerm_storage_account.sa.primary_connection_string
+  https_only        = true
+
+  resource_types {
+    service   = true
+    container = true
+    object    = true
   }
 
-  depends_on = [azurerm_resource_group.rg]
+  services {
+    blob  = true
+    queue = false
+    table = false
+    file  = false
+  }
+
+  start  = timestamp()
+  expiry = timeadd(timestamp(), "17520h")
+
+  permissions {
+    read    = true
+    write   = true
+    delete  = true
+    list    = true
+    add     = true
+    create  = true
+    update  = false
+    process = false
+  }
+}
+resource "local_file" "post-config" {
+  depends_on = [azurerm_storage_container.ct]
+
+  filename = "${path.module}/backend-config.txt"
+  content  = <<EOF
+storage_account_name = "${azurerm_storage_account.sa.name}"
+container_name = "terraform-state"
+key = "terraform.tfstate"
+sas_token = "${data.azurerm_storage_account_sas.state.sas}"
+
+  EOF
 }

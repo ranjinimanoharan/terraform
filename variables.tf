@@ -1,6 +1,6 @@
 variable "resource_group_name" {
   type = string
-  default = "ODL-azure-1035132"
+  default = "ODL-azure-1035642"
 }
 
 variable "location" {
@@ -22,4 +22,9 @@ variable "subnet_prefixes" {
 variable "subnet_names" {
   type    = list(string)
   default = ["web", "database"]
+}
+
+variable "naming_prefix" {
+  type    = string
+  default = "itma"
 }
